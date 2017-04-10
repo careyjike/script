@@ -4,8 +4,7 @@
 
 ### 安装方式
 ```
-git  clone https://git.oschina.net/careyjike_173/script.git &&  cd script;chmod +x install.sh
-./install.sh | tee -a install.log
+git  clone https://git.oschina.net/careyjike_173/script.git &&  cd script;chmod +x install.sh; ./install.sh | tee -a install.log
 ```
 
 ### 版本和安装目录

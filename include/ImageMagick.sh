@@ -3,6 +3,7 @@
 
 Install_ImageMagick() {
   pushd ${Pwd}/src
+  src_url=http://mirror.checkdomain.de/imagemagick/ImageMagick-${ImageMagick_version}.tar.gz && wget -c --tries=6 $src_url
   tar xzf ImageMagick-${ImageMagick_version}.tar.gz
   pushd ImageMagick-${ImageMagick_version}
   ./configure --prefix=/usr/local/imagemagick --enable-shared --enable-static
@@ -17,9 +18,11 @@ Install_php-imagick() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
     phpExtensionDir=`${php_install_dir}/bin/php-config --extension-dir`
     if [ "`${php_install_dir}/bin/php -r 'echo PHP_VERSION;' | awk -F. '{print $1"."$2}'`" == '5.3' ]; then
+      src_url=https://pecl.php.net/get/imagick-${imagick_for_php53_version}.tgz  && wget -c --tries=6 $src_url
       tar xzf imagick-${imagick_for_php53_version}.tgz
       pushd imagick-${imagick_for_php53_version}
     else
+      src_url=http://pecl.php.net/get/imagick-${imagick_version}.tgz && wget -c -tries=6 $src_url
       tar xzf imagick-${imagick_version}.tgz
       pushd imagick-${imagick_version}
     fi
@@ -30,10 +33,10 @@ Install_php-imagick() {
     popd
     if [ -f "${phpExtensionDir}/imagick.so" ]; then
       echo 'extension=imagick.so' > ${php_install_dir}/etc/php.d/ext-imagick.ini
-      echo "${CSUCCESS}PHP imagick module installed successfully! ${CEND}"
+      echo "${CSUCCESSFUL}PHP imagick module installed successfully! ${CEND}"
       rm -rf imagick-${imagick_for_php53_version} imagick-${imagick_version}
     else
-      echo "${CFAILURE}PHP imagick module install failed, Please contact the author! ${CEND}"
+      echo "${CFAIL}PHP imagick module install failed, Please contact the author! ${CEND}"
     fi
   fi
   popd

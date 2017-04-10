@@ -2,6 +2,8 @@
 
 Install_ZendOPcache() {
   pushd ${Pwd}/src
+  src_url=https://pecl.php.net/get/zendopcache-${zendopcache_version}.tgz && wget -c --tries=6 $src_url
+
   phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
   PHP_detail_version=$(${php_install_dir}/bin/php -r 'echo PHP_VERSION;')
   PHP_main_version=${PHP_detail_version%.*}

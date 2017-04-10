@@ -252,15 +252,18 @@ fi
 # php cache
 if [ "${Php_cache}" = "Zend OPcache" ]; then
 	. ./include/ZendOpcache.sh
+  Install_ZendOPcache
 elif [ "${Php_cache}" = "XCache" ]; then
 	. ./include/XCache.sh
+  Install_XCache
 elif [ "${Php_cache}" = "APCU" ]; then
 	. ./include/APCU.sh
+  Install_APCUs
 fi
 
 # ftp
 if [ "${Ftp_yn}" = 'y' ]; then
-	. ./include/pureftpd.sh
+	. ./include/PureFtpd.sh
 fi
 
 # redis

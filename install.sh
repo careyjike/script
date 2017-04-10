@@ -45,6 +45,9 @@ while :; do echo
           done
         elif [ "${Web_var}" = "Install Tomcat" ]; then
         	select Tomcat_var in "Tomcat-7" "Tomcat-8"; do
+            select Jdk_var in "Jdk-1.7" "Jdk-1.8"; do
+              break
+            done
         		break
         	done
   			fi
@@ -206,21 +209,33 @@ elif [ "${Apache_var}" = "Apache-2.4" ]; then
 	. ./include/Apache2.4.sh
 	Install_Apache24
 elif [ "${Tomcat_var}" = "Tomcat-7" ]; then
-	# . ./include/Tomcat7.sh
-	# Install_Tomcat7
+  if [ "${Jdk_var}" = "Jdk-1.7" ]; then
+    . ./include/Jdk1.7.sh
+    Install-JDK17
+  elif [ "${Jdk_var}" = "Jdk-1.8" ]; then
+    . ./include/Jdk-1.8.sh
+    Install-JDK18
+  fi
+	. ./include/Tomcat7.sh
+	Install_Tomcat7
 elif [ "${Tomcat_var}" = "Tomcat-8" ]; then
-	# . ./include/Tomcat8.sh
+	. ./include/Tomcat8.sh
+  Install_Tomcat8
 fi
 
 # php server
 if [ "${Php_var}" = "Php-5.5" ]; then
 	. ./include/php5.5.sh
+  Install_PHP55
 elif [ "${Php_var}" = "Php-5.6" ]; then
 	. ./include/php5.6.sh
+  Install_PHP56
 elif [ "${Php_var}" = "Php-7.0" ]; then
 	. ./include/php7.0.sh
+  Install_php70
 elif [ "${Php_var}" = "Php-7.1" ]; then
 	. ./include/php7.1.sh
+  Install_php71
 fi
 
 # ImageMagick or GraphicsMagick

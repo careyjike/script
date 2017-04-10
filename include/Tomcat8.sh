@@ -1,14 +1,16 @@
 #!/bin/bash
 
-Install_Tomcat7() {
+Install_Tomcat8() {
   pushd ${Pwd}/src
   . /etc/profile
-  src_url=http://archive.apache.org/dist/apr/apr-${apr_version}.tar.gz && wget -c --tries=6 $src_url
-  src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v${tomcat7_version}/src/apache-tomcat-${tomcat7_version}-src.tar.gz && wget -c --tries=6 $src_url
-  src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v${tomcat7_version}/bin/extras/catalina-jmx-remote.jar && wget -c --tries=6 $src_url
 
   id -u ${run_user} >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -M -s /bin/bash ${run_user} || { [ -z "$(grep ^${run_user} /etc/passwd | grep '/bin/bash')" ] && usermod -s /bin/bash ${run_user}; }
+
+  # download
+  src_url=http://archive.apache.org/dist/apr/apr-${apr_version}.tar.gz && wget -c --tries=6 $src_url
+  src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v${tomcat8_version}/src/apache-tomcat-${tomcat8_version}-src.tar.gz && wget -c --tries=6 $src_url
+  src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v${tomcat8_version}/bin/extras/catalina-jmx-remote.jar && wget -c --tries=6 $src_url
 
   # install apr
   if [ ! -e "/usr/local/apr/bin/apr-1-config" ]; then
@@ -20,9 +22,9 @@ Install_Tomcat7() {
     rm -rf apr-${apr_version}
   fi
 
-  tar xzf apache-tomcat-${tomcat7_version}.tar.gz
+  tar xzf apache-tomcat-${tomcat8_version}.tar.gz
   [ ! -d "${tomcat_install_dir}" ] && mkdir -p ${tomcat_install_dir}
-  /bin/cp -R apache-tomcat-${tomcat7_version}/* ${tomcat_install_dir}
+  /bin/cp -R apache-tomcat-${tomcat8_version}/* ${tomcat_install_dir}
   rm -rf ${tomcat_install_dir}/webapps/{docs,examples,host-manager,manager,ROOT/*}
 
   if [ ! -e "${tomcat_install_dir}/conf/server.xml" ]; then
@@ -36,7 +38,7 @@ Install_Tomcat7() {
   pushd ${tomcat_install_dir}/lib/catalina
   jar xf ../catalina.jar
   sed -i 's@^server.info=.*@server.info=Tomcat@' org/apache/catalina/util/ServerInfo.properties
-  sed -i 's@^server.number=.*@server.number=7@' org/apache/catalina/util/ServerInfo.properties
+  sed -i 's@^server.number=.*@server.number=8@' org/apache/catalina/util/ServerInfo.properties
   sed -i "s@^server.built=.*@server.built=$(date)@" org/apache/catalina/util/ServerInfo.properties
   jar cf ../catalina.jar ./*
   popd
@@ -62,10 +64,16 @@ CATALINA_OPTS="-Djava.library.path=/usr/local/apr/lib"
 EOF
     chmod +x ./*.sh
     /bin/mv ${tomcat_install_dir}/conf/server.xml{,_bk}
-    popd
+    popd # goto ${Pwd}/src
 
     /bin/cp ${Pwd}/config/server.xml ${tomcat_install_dir}/conf
     sed -i "s@/usr/local/tomcat@${tomcat_install_dir}@g" ${tomcat_install_dir}/conf/server.xml
+
+    if [ -z "$(grep -w '8080' /etc/sysconfig/iptables)" ]; then
+      iptables -I INPUT 5 -p tcp -m state --state NEW -m tcp --dport 8080 -j ACCEPT
+      service iptables save
+    fi
+
 
     [ ! -d "${tomcat_install_dir}/conf/vhost" ] && mkdir ${tomcat_install_dir}/conf/vhost
     cat > ${tomcat_install_dir}/conf/vhost/localhost.xml << EOF
@@ -99,13 +107,13 @@ monitorRole  $(cat /dev/urandom | head -1 | md5sum | head -c 8)
 # controlRole   R&D
 EOF
     chown -R ${run_user}.${run_user} ${tomcat_install_dir}
-    /bin/cp ${Pwd}/init.d/Tomcat-init /etc/init.d/tomcat
+    /bin/cp ${Pwd}/init.d/tomcat /etc/init.d/tomcat
     sed -i "s@JAVA_HOME=.*@JAVA_HOME=${JAVA_HOME}@" /etc/init.d/tomcat
     sed -i "s@^CATALINA_HOME=.*@CATALINA_HOME=${tomcat_install_dir}@" /etc/init.d/tomcat
     sed -i "s@^TOMCAT_USER=.*@TOMCAT_USER=${run_user}@" /etc/init.d/tomcat
     chkconfig --add tomcat; chkconfig tomcat on
     echo "${CSUCCESSFUL}Tomcat installed successfully! ${CEND}"
-    rm -rf apache-tomcat-${tomcat7_version}
+    rm -rf apache-tomcat-${tomcat8_version}
   else
     popd
     echo "${CFAIL}Tomcat install failed, Please contact the author! ${CEND}"

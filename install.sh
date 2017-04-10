@@ -67,7 +67,6 @@ done
 while :; do echo
   read -p "Do you want to install database server [y/n]?" Db_yn
   if [[  $Db_yn =~ ^[y,n]$ ]]; then
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
 	  if [ "${Db_yn}" == 'y' ]; then
   		select Db_var in "Install Mysql" "Install Mariadb"; do
   			if [ "${Db_var}" = "Install Mysql" ]; then

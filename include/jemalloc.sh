@@ -4,7 +4,7 @@ Install_Jemalloc() {
 
   if [ ! -e "/usr/local/lib/libjemalloc.so" ]; then
     # download
-    src_url=https://github.com/jemalloc/jemalloc/archive/${jemalloc_version}.tar.bz2 && wget -c --tries=6 --no-check-certificate $src_url
+    src_url=https://github.com/jemalloc/jemalloc/releases/download/${jemalloc_version}/jemalloc-${jemalloc_version}.tar.bz2 && wget -c --tries=6 --no-check-certificate $src_url
 
     tar xjf jemalloc-${jemalloc_version}.tar.bz2
     pushd jemalloc-${jemalloc_version}

@@ -264,16 +264,26 @@ fi
 # ftp
 if [ "${Ftp_yn}" = 'y' ]; then
 	. ./include/PureFtpd.sh
+  Install_PureFTPd
 fi
 
 # redis
 if [ "${Redis_yn}" = 'y' ]; then
 	. ./include/redis.sh
+  Install_redis-server
+  if [ "${Php_yn}" = 'y' ]; then
+    Install_php-redis
+  fi
 fi
 
 # memcached
 if [ "${Memcached_yn}" = 'y' ]; then
 	. ./include/memcached.sh
+  Install_memcached
+  if [ "${Php_yn}" = 'y' ]; then
+    Install_php-memcache
+    # Install_php-memcached
+  fi
 fi
 
 

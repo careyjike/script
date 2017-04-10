@@ -195,17 +195,21 @@ fi
 # web server
 if [ "${Web_var}" = "Install Nginx" ]; then
 	. ./include/Nginx.sh
-	Install_nginx
+	Install_Nginx
 if [ "${Web_var}" = "Install Tengine" ]; then
 	. ./include/Tengine.sh
+	Install_Tengine
 elif [ "${Apache_var}" = "Apache-2.2" ]; then
 	. ./include/Apache2.2.sh
+	Install_Apache22
 elif [ "${Apache_var}" = "Apache-2.4" ]; then
 	. ./include/Apache2.4.sh
+	Install_Apache24
 elif [ "${Tomcat_var}" = "Tomcat-7" ]; then
-	. ./include/Tomcat7.sh
+	# . ./include/Tomcat7.sh
+	# Install_Tomcat7
 elif [ "${Tomcat_var}" = "Tomcat-8" ]; then
-	. ./include/Tomcat8.sh
+	# . ./include/Tomcat8.sh
 fi
 
 # php server

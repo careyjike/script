@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-Install_nginx() {
+Install_Nginx() {
   pushd ${Pwd}/src
   src_url=http://nginx.org/download/nginx-${nginx_version}.tar.gz && wget -c --tries=6 $src_url
   src_url=https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
@@ -42,170 +42,15 @@ Install_nginx() {
   . /etc/profile
 
   # nginx service
-  cat > /etc/init.d/nginx << EOF
-#!/bin/sh
-#
-# nginx - this script starts and stops the nginx daemon
-#
-# chkconfig:   - 85 15
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \
-#               proxy and IMAP/POP3 proxy server
-# processname: nginx
-# config:      /usr/local/nginx/conf/nginx.conf
-# pidfile:     /var/run/nginx.pid
+  cp ${Pwd}/init.d/nginx /etc/init.d/nginx && chmod +x /etc/init.d/nginx && chkconfig --add nginx;chkconfig nginx on
+  sed -i "s@/usr/local/nginx@${nginx_install_dir}@g" /etc/init.d/nginx
 
-nginx="/usr/local/nginx/sbin/nginx"
-
-NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"
-
-start() {
-  [ -x \$nginx ] || exit 5
-  [ -f \$NGINX_CONF_FILE ] || exit 6
-  echo -e "Starting nginx...... "
-  \$nginx
-}
-
-stop() {
-  echo -e "Stopping nginx...... "
-  \$nginx -s stop
-}
-
-restart() {
-  stop
-  sleep 1
-  start
-}
-
-reload() {
-  echo -e " Reload nginx...... "
-  \$nginx -s reload
-}
-
-force_reload() {
-  restart
-}
-
-configtest() {
-  \$nginx -t
-}
-
-case "\$1" in
-  start)
-    \$1
-    ;;
-  stop)
-    \$1
-    ;;
-  restart|configtest)
-    \$1
-    ;;
-  reload)
-    \$1
-    ;;
-  *)
-    echo $"Usage: \$0 {start|stop|restart|reload|configtest}"
-    exit 2
-esac
-EOF
-  chmod +x /etc/init.d/nginx && chkconfig --add nginx;chkconfig nginx on
-  sed -i "s@/usr/local/nginx@$nginx_install_dir@g" /etc/init.d/nginx
   # nginx.conf
-  cat > ${nginx_install_dir}/conf/nginx.conf << EOF
-user $run_user $run_user;
-worker_processes $(cat /proc/cpuinfo | grep processor | wc -l);
+  cp ${Pwd}/conf/nginx.conf ${nginx_install_dir}/conf/nginx.conf
+  sed -i "s@/data/wwwroot/default@$wwwroot_dir/default@" $nginx_install_dir/conf/nginx.conf
+  sed -i "s@/data/wwwlogs@$wwwlogs_dir@g" $nginx_install_dir/conf/nginx.conf
+  sed -i "s@^user www www@user $run_user $run_user@" $nginx_install_dir/conf/nginx.conf
 
-error_log ${data_dir}/logs/error_nginx.log crit;
-pid /var/run/nginx.pid;
-worker_rlimit_nofile 51200;
-
-events {
-  use epoll;
-  worker_connections 51200;
-  multi_accept on;
-}
-
-http {
-  include mime.types;
-  default_type application/octet-stream;
-  server_names_hash_bucket_size 128;
-  client_header_buffer_size 32k;
-  large_client_header_buffers 4 32k;
-  client_max_body_size 1024m;
-  client_body_buffer_size 10m;
-  sendfile on;
-  tcp_nopush on;
-  keepalive_timeout 120;
-  server_tokens off;
-  tcp_nodelay on;
-
-  fastcgi_connect_timeout 300;
-  fastcgi_send_timeout 300;
-  fastcgi_read_timeout 300;
-  fastcgi_buffer_size 64k;
-  fastcgi_buffers 4 64k;
-  fastcgi_busy_buffers_size 128k;
-  fastcgi_temp_file_write_size 128k;
-  fastcgi_intercept_errors on;
-
-  #Gzip Compression
-  gzip on;
-  gzip_buffers 16 8k;
-  gzip_comp_level 6;
-  gzip_http_version 1.1;
-  gzip_min_length 256;
-  gzip_proxied any;
-  gzip_vary on;
-  gzip_types
-    text/xml application/xml application/atom+xml application/rss+xml application/xhtml+xml image/svg+xml
-    text/javascript application/javascript application/x-javascript
-    text/x-json application/json application/x-web-app-manifest+json
-    text/css text/plain text/x-component
-    font/opentype application/x-font-ttf application/vnd.ms-fontobject
-    image/x-icon;
-  gzip_disable "MSIE [1-6]\.(?!.*SV1)";
-
-  #If you have a lot of static files to serve through Nginx then caching of the files' metadata (not the actual files' contents) can save some latency.
-  open_file_cache max=1000 inactive=20s;
-  open_file_cache_valid 30s;
-  open_file_cache_min_uses 2;
-  open_file_cache_errors on;
-
-######################## default ############################
-  server {
-  listen 80;
-  server_name _;
-  access_log ${data_dir}/logs/access_nginx.log combined;
-  root ${data_dir}/wwwroot;
-  index index.html index.htm index.php;
-  location /nginx_status {
-    stub_status on;
-    access_log off;
-    allow 127.0.0.1;
-    deny all;
-    }
-  location ~ [^/]\.php(/|$) {
-    #fastcgi_pass remote_php_ip:9000;
-    fastcgi_pass unix:/dev/shm/php-cgi.sock;
-    fastcgi_index index.php;
-    include fastcgi.conf;
-    }
-  location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {
-    expires 30d;
-    access_log off;
-    }
-  location ~ .*\.(js|css)?$ {
-    expires 7d;
-    access_log off;
-    }
-  location ~ /\.ht {
-    deny all;
-    }
-  }
-
-########################## vhost #############################
-  include vhost/*.conf;
-}
-EOF
   # nginx proxy.conf
   cat > ${nginx_install_dir}/conf/proxy.conf << EOF
 proxy_connect_timeout 300s;
@@ -223,4 +68,21 @@ proxy_set_header Host \$host;
 proxy_set_header X-Real-IP \$remote_addr;
 proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
 EOF
+  # logrotate nginx log
+  cat > /etc/logrotate.d/nginx << EOF
+$wwwlogs_dir/*nginx.log {
+  daily
+  rotate 5
+  missingok
+  dateext
+  compress
+  notifempty
+  sharedscripts
+  postrotate
+    [ -e /var/run/nginx.pid ] && kill -USR1 \`cat /var/run/nginx.pid\`
+  endscript
+}
+EOF
+  ldconfig
+  /etc/init.d/nginx start
 }

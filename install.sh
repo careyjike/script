@@ -198,7 +198,7 @@ fi
 if [ "${Web_var}" = "Install Nginx" ]; then
 	. ./include/Nginx.sh
 	Install_Nginx
-if [ "${Web_var}" = "Install Tengine" ]; then
+elif [ "${Web_var}" = "Install Tengine" ]; then
 	. ./include/Tengine.sh
 	Install_Tengine
 elif [ "${Apache_var}" = "Apache-2.2" ]; then

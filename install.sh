@@ -285,10 +285,3 @@ if [ "${Memcached_yn}" = 'y' ]; then
     # Install_php-memcached
   fi
 fi
-
-
-
-
-
-
-

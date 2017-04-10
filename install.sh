@@ -22,7 +22,7 @@ sed -i "s@^Pwd.*@Pwd=`pwd`@" ./public/options.conf
 
 # check system
 Get_Sysinfo
-if [  "${OS}" = "Other" ];
+if [  "${OS}" = "Other" ]; then
 	echo "${FAIL} error,system dose not support${CEND}"
   kill -9 $$
 else

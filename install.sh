@@ -36,7 +36,6 @@ fi
 while :; do echo
   read -p "Do you want to install web server [y/n]?" Web_yn
   if [[  $Web_yn =~ ^[y,n]$ ]]; then
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
 	  if [ "${Web_yn}" == 'y' ]; then
   		select Web_var in "Install Nginx" "Install Apache" "Install Tengine" "Install Tomcat"; do
   			if [ "${Web_var}" = "Install Apache" ]; then
@@ -280,7 +279,7 @@ if [ "${Memcached_yn}" = 'y' ]; then
 	. ./include/memcached.sh
   Install_memcached
   if [ "${Php_yn}" = 'y' ]; then
-    Install_php-memcache
-    # Install_php-memcached
+    # Install_php-memcache
+    Install_php-memcached
   fi
 fi

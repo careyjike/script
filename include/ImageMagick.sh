@@ -20,7 +20,7 @@ Install_php-imagick() {
       tar xzf imagick-${imagick_for_php53_version}.tgz
       pushd imagick-${imagick_for_php53_version}
     else
-      src_url=http://pecl.php.net/get/imagick-${imagick_version}.tgz && wget -c -tries=6 $src_url
+      src_url=http://pecl.php.net/get/imagick-${imagick_version}.tgz && wget -c --tries=6 $src_url
       tar xzf imagick-${imagick_version}.tgz
       pushd imagick-${imagick_version}
     fi

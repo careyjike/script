@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Install_php70() {
+Install_PHP70() {
   pushd ${Pwd}/src
   src_url=http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${libiconv_version}.tar.gz && wget --tries=6 -c $src_url
   src_url=https://curl.haxx.se/download/curl-${curl_version}.tar.gz && wget --tries=6 -c --no-check-certificate $src_url

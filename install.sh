@@ -228,12 +228,12 @@ if [ "${Php_var}" = "Php-5.5" ]; then
 elif [ "${Php_var}" = "Php-5.6" ]; then
 	. ./include/php5.6.sh
   Install_PHP56
-elif [ "${Php_var}" = "Php-7.0" ]; then
+elif [ "${Php_var}" = 'Php-7.0' ]; then
 	. ./include/php7.0.sh
-  Install_php70
+  Install_PHP70
 elif [ "${Php_var}" = "Php-7.1" ]; then
 	. ./include/php7.1.sh
-  Install_php71
+  Install_PHP71
 fi
 
 # ImageMagick or GraphicsMagick

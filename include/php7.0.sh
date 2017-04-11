@@ -234,10 +234,8 @@ EOF
   fi
 
   #[ "$Web_yn" == 'n' ] && sed -i "s@^listen =.*@listen = $IPADDR:9000@" $php_install_dir/etc/php-fpm.conf
-  service php-fpm start
+  /etc/init.d/php-fpm start
 
-  popd
-  [ -e "$php_install_dir/bin/phpize" ] && rm -rf php-$php70_version
-  popd
+  popd;popd
 }
 

@@ -6,9 +6,7 @@ Install_GraphicsMagick() {
   pushd GraphicsMagick-${GraphicsMagick_version}
   ./configure --prefix=/usr/local/graphicsmagick --enable-shared --enable-static
   make -j ${THREAD} && make install
-  popd
-  rm -rf GraphicsMagick-${GraphicsMagick_version}
-  popd
+  popd;popd
 }
 
 Install_php-gmagick() {
@@ -31,10 +29,9 @@ Install_php-gmagick() {
     popd
     if [ -f "${phpExtensionDir}/gmagick.so" ]; then
       echo 'extension=gmagick.so' > ${php_install_dir}/etc/php.d/ext-gmagick.ini
-      echo "${CSUCCESSFUL}PHP gmagick module installed successfully! ${CEND}"
-      rm -rf gmagick-${gmagick_for_php7_version} gmagick-${gmagick_version}
+      echo -e "${CSUCCESSFUL}PHP gmagick module installed successfully! ${CEND}"
     else
-      echo "${CFAIL}PHP gmagick module install failed, Please contact the author! ${CEND}"
+      echo -e "${CFAIL}PHP gmagick module install failed, Please contact the author! ${CEND}"
     fi
   fi
   popd

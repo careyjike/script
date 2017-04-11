@@ -24,10 +24,10 @@ Install_Tengine() {
   make -j ${THREAD} && make install
   popd
   if [ -e "$tengine_install_dir/conf/nginx.conf" ]; then
-    echo "${CSUCCESSFUL}Tengine installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Tengine installed successfully! ${CEND}"
   else
     rm -rf $tengine_install_dir
-    echo "${CFAIL}Tengine install failed, Please Contact the author! ${CEND}"
+    echo -e "${CFAIL}Tengine install failed, Please Contact the author! ${CEND}"
     kill -9 $$
   fi
 

@@ -27,7 +27,6 @@ Install_Apache24() {
     make -j ${THREAD} && make install
     popd
     echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf; ldconfig
-    rm -rf nghttp2-${nghttp2_version}
   fi
 
   pushd httpd-${apache24_version}
@@ -39,12 +38,11 @@ Install_Apache24() {
   make -j ${THREAD} && make install
   unset LDFLAGS
   if [ -e "${apache_install_dir}/conf/httpd.conf" ]; then
-    echo "${CSUCCESSFUL}Apache installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Apache installed successfully! ${CEND}"
     popd
-    rm -rf httpd-${apache24_version}
   else
     rm -rf ${apache_install_dir}
-    echo "${CFAIL}Apache install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Apache install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
 
@@ -140,6 +138,6 @@ Include conf/vhost/*.conf
 EOF
 
   ldconfig
-  service httpd start
+  /etc/init.d/httpd start
   popd
 }

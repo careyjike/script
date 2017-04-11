@@ -13,12 +13,11 @@ Install_Apache22() {
   make -j ${THREAD} && make install
   unset LDFLAGS
   if [ -e "${apache_install_dir}/conf/httpd.conf" ]; then
-    echo "${CSUCCESSFUL}Apache installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Apache installed successfully! ${CEND}"
     popd
-    rm -rf httpd-${apache22_version}
   else
     rm -rf ${apache_install_dir}
-    echo "${CFAIL}Apache install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Apache install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
 
@@ -104,6 +103,6 @@ Include conf/vhost/*.conf
 EOF
 
   ldconfig
-  service httpd start
+  /etc/init.d/httpd start
   popd
 }

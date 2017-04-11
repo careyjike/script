@@ -57,10 +57,9 @@ opcache.consistency_checks=0
 EOF
     fi
 
-    echo "${CSUCCESSFUL}PHP OPcache module installed successfully! ${CEND}"
-    rm -rf zendopcache-${zendopcache_version} php-${PHP_detail_version}
+    echo -e  "${CSUCCESSFUL}PHP OPcache module installed successfully! ${CEND}"
   else
-    echo "${CFAIL}PHP OPcache module install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}PHP OPcache module install failed, Please contact the author! ${CEND}"
   fi
   popd
 }

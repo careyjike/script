@@ -23,10 +23,10 @@ Install-JDK17() {
     [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep '$JAVA_HOME/bin' /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=\$JAVA_HOME/bin:\1@" /etc/profile
     [ -z "`grep ^'export PATH=' /etc/profile | grep '$JAVA_HOME/bin'`" ] && echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
     . /etc/profile
-    echo "${CSUCCESSFUL}$JDK_NAME installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}$JDK_NAME installed successfully! ${CEND}"
   else
     rm -rf $JAVA_dir
-    echo "${CFAIL}JDK install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}JDK install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
   popd

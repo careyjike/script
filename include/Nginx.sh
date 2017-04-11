@@ -30,11 +30,10 @@ Install_Nginx() {
 
   if [ -e "$nginx_install_dir/conf/nginx.conf" ]; then
     popd
-    rm -rf nginx-$nginx_version
-    echo "${CSUCCESSFUL} Nginx installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL} Nginx installed successfully! ${CEND}"
   else
     rm -rf $nginx_install_dir
-    echo "${CFAIL} Nginx install failed, Please Contact the author! ${CEND}"
+    echo -e "${CFAIL} Nginx install failed, Please Contact the author! ${CEND}"
     kill -9 $$
   fi
   popd

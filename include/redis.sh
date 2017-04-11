@@ -23,7 +23,7 @@ Install_redis-server() {
     sed -i "s@^# bind 127.0.0.1@bind 127.0.0.1@" ${redis_install_dir}/etc/redis.conf
     redis_maxmemory=`expr $Mem / 8`000000
     [ -z "`grep ^maxmemory ${redis_install_dir}/etc/redis.conf`" ] && sed -i "s@maxmemory <bytes>@maxmemory <bytes>\nmaxmemory `expr $Mem / 8`000000@" ${redis_install_dir}/etc/redis.conf
-    echo "${CSUCCESSFUL}Redis-server installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Redis-server installed successfully! ${CEND}"
     popd
     id -u redis >/dev/null 2>&1
     [ $? -ne 0 ] && useradd -M -s /sbin/nologin redis
@@ -39,10 +39,10 @@ Install_redis-server() {
     sed -i "s@/usr/local/redis@${redis_install_dir}@g" /etc/init.d/redis-server
     #[ -z "`grep 'vm.overcommit_memory' /etc/sysctl.conf`" ] && echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf
     #sysctl -p
-    service redis-server start
+    /etc/init.d/redis-server start
   else
     rm -rf ${redis_install_dir}
-    echo "${CFAIL}Redis-server install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Redis-server install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
   popd
@@ -66,10 +66,10 @@ Install_php-redis() {
     make -j ${THREAD} && make install
     if [ -f "${phpExtensionDir}/redis.so" ]; then
       echo 'extension=redis.so' > ${php_install_dir}/etc/php.d/ext-redis.ini
-      echo "${CSUCCESSFUL}PHP Redis module installed successfully! ${CEND}"
+      echo -e "${CSUCCESSFUL}PHP Redis module installed successfully! ${CEND}"
       popd
     else
-      echo "${CFAIL}PHP Redis module install failed, Please contact the author! ${CEND}"
+      echo -e "${CFAIL}PHP Redis module install failed, Please contact the author! ${CEND}"
     fi
   fi
   popd

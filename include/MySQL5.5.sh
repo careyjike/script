@@ -2,7 +2,6 @@
 
 Install_MySQL55() {
   pushd ${Pwd}/src
-  echo  "${CMESSAGES} Download mysql...${CEND}"
   if [ "$install_mod"  == 'binary' ]; then
     src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.5/mysql-${mysql55_version}-linux2.6-${SYS_BIT}.tar.gz &&  wget --tries=6 -c --no-check-certificate $src_url
   elif [  "$install_mod" == 'source' ]; then
@@ -44,9 +43,9 @@ Install_MySQL55() {
     popd
   fi
   if [ -d "${mysql_install_dir}/support-files" ]; then
-    echo  "${CSUCCESSFUL} MySql install successfully! ${CEND}"
+    echo  -e "${CSUCCESSFUL} MySql install successfully! ${CEND}"
   else
-    echo "${CFAIL} MySql install failed! ${CEND}"
+    echo -e "${CFAIL} MySql install failed! ${CEND}"
     exit 1
   fi
 

@@ -91,10 +91,10 @@ Install_PHP71() {
   make install
 
   if [ -e "$php_install_dir/bin/phpize" ]; then
-    echo "${CSUCCESSFUL}PHP installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}PHP installed successfully! ${CEND}"
   else
     rm -rf $php_install_dir
-    echo "${CFAIL}PHP install failed, Please Contact the author! ${CEND}"
+    echo -e "${CFAIL}PHP install failed, Please Contact the author! ${CEND}"
     kill -9 $$
   fi
 
@@ -231,9 +231,7 @@ EOF
   fi
 
   #[ "$Web_yn" == 'n' ] && sed -i "s@^listen =.*@listen = $IPADDR:9000@" $php_install_dir/etc/php-fpm.conf
-  service php-fpm start
+  /etc/init.d/php-fpm start
 
-  popd
-  [ -e "$php_install_dir/bin/phpize" ] && rm -rf php-$php71_version
-  popd
+  popd;popd
 }

@@ -22,7 +22,6 @@ Install_Jemalloc() {
       echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
       ldconfig
       echo -e "${CSUCCESS}jemalloc module installed successfully! ${CEND}"
-      rm -rf jemalloc-${jemalloc_version}
     else
       echo -e "${CFAILURE}jemalloc install failed, Please contact the author! ${CEND}"
       kill -9 $$

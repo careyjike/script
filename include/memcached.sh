@@ -16,7 +16,7 @@ Install_memcached() {
   make -j ${THREAD} && make install
   popd
   if [ -d "${memcached_install_dir}/include/memcached" ]; then
-    echo "${CSUCCESSFUL}memcached installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}memcached installed successfully! ${CEND}"
     ln -s ${memcached_install_dir}/bin/memcached /usr/bin/memcached
     /bin/cp ../init.d/memcached /etc/init.d/memcached; chmod +x /etc/init.d/memcached; chkconfig --add memcached; chkconfig memcached on    sed -i "s@/usr/local/memcached@${memcached_install_dir}@g" /etc/init.d/memcached
     [ ! -f "/etc/init.d/functions" ] && { cp ../init.d/functions /etc/init.d/functions; chmod +x /etc/init.d/functions; }
@@ -26,7 +26,7 @@ Install_memcached() {
     /etc/init.d/memcached start
   else
     rm -rf ${memcached_install_dir}
-    echo "${CFAIL}memcached install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}memcached install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
   popd
@@ -54,10 +54,9 @@ Install_php-memcache() {
     popd
     if [ -f "${phpExtensionDir}/memcache.so" ]; then
       echo "extension=memcache.so" > ${php_install_dir}/etc/php.d/ext-memcache.ini
-      echo "${CSUCCESSFUL}PHP memcache module installed successfully! ${CEND}"
-      rm -rf pecl-memcache-php7 memcache-${memcache_pecl_version}
+      echo -e "${CSUCCESSFUL}PHP memcache module installed successfully! ${CEND}"
     else
-      echo "${CFAIL}PHP memcache module install failed, Please contact the author! ${CEND}"
+      echo -e "${CFAIL}PHP memcache module install failed, Please contact the author! ${CEND}"
     fi
   fi
   popd
@@ -95,10 +94,10 @@ Install_php-memcached() {
 extension=memcached.so
 memcached.use_sasl=1
 EOF
-      echo "${CSUCCESSFUL}PHP memcached module installed successfully! ${CEND}"
+      echo -e "${CSUCCESSFUL}PHP memcached module installed successfully! ${CEND}"
       rm -rf memcached-${memcached_pecl_version} memcached-${memcached_pecl_php7_version}
     else
-      echo "${CFAIL}PHP memcached module install failed, Please contact the author! ${CEND}"
+      echo -e "${CFAIL}PHP memcached module install failed, Please contact the author! ${CEND}"
     fi
   fi
   popd

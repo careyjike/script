@@ -54,10 +54,10 @@ xcache.coverager = Off
 xcache.coverager_autostart = On
 xcache.coveragedump_directory = ""
 EOF
-    echo "${CSUCCESSFUL}Xcache module installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Xcache module installed successfully! ${CEND}"
     rm -rf xcache-${xcache_version}
   else
-    echo "${CFAIL}Xcache module install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Xcache module install failed, Please contact the author! ${CEND}"
   fi
   popd
 }

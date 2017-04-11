@@ -27,11 +27,11 @@ apc.ttl=7200
 apc.enable_cli=1
 EOF
     /bin/cp apc.php ${wwwroot_dir}/default
-    echo "${CSUCCESS}APCU module installed successfully! ${CEND}"
+    echo -e "${CSUCCESS}APCU module installed successfully! ${CEND}"
     popd
     rm -rf apcu-${apcu_for_php7_version} apcu-${apcu_version} package.xml
   else
-    echo "${CFAILURE}APCU module install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAILURE}APCU module install failed, Please contact the author! ${CEND}"
   fi
   popd
 }

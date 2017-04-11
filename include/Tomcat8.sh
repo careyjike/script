@@ -30,7 +30,7 @@ Install_Tomcat8() {
 
   if [ ! -e "${tomcat_install_dir}/conf/server.xml" ]; then
     rm -rf ${tomcat_install_dir}
-    echo "${CFAIL}Tomcat install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Tomcat install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
 
@@ -113,12 +113,12 @@ EOF
     sed -i "s@^CATALINA_HOME=.*@CATALINA_HOME=${tomcat_install_dir}@" /etc/init.d/tomcat
     sed -i "s@^TOMCAT_USER=.*@TOMCAT_USER=${run_user}@" /etc/init.d/tomcat
     chkconfig --add tomcat; chkconfig tomcat on
-    echo "${CSUCCESSFUL}Tomcat installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Tomcat installed successfully! ${CEND}"
     rm -rf apache-tomcat-${tomcat8_version}
   else
     popd
-    echo "${CFAIL}Tomcat install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Tomcat install failed, Please contact the author! ${CEND}"
   fi
-  service tomcat start
+  /etc/init.d/tomcat start
   popd
 }

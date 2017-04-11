@@ -7,7 +7,7 @@
 
 alias echo="echo -e"
 
-CEND="\033\0m"
+CEND="\033[0m"
 CSUCCESSFUL="\033[36m"
 CFAIL="\033[31m"
 CMESSAGE="\033[33m"

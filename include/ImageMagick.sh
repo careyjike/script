@@ -8,9 +8,7 @@ Install_ImageMagick() {
   pushd ImageMagick-${ImageMagick_version}
   ./configure --prefix=/usr/local/imagemagick --enable-shared --enable-static
   make -j ${THREAD} && make install
-  popd
-  rm -rf ImageMagick-${ImageMagick_version}
-  popd
+  popd;popd
 }
 
 Install_php-imagick() {
@@ -33,10 +31,9 @@ Install_php-imagick() {
     popd
     if [ -f "${phpExtensionDir}/imagick.so" ]; then
       echo 'extension=imagick.so' > ${php_install_dir}/etc/php.d/ext-imagick.ini
-      echo "${CSUCCESSFUL}PHP imagick module installed successfully! ${CEND}"
-      rm -rf imagick-${imagick_for_php53_version} imagick-${imagick_version}
+      echo -e "${CSUCCESSFUL}PHP imagick module installed successfully! ${CEND}"
     else
-      echo "${CFAIL}PHP imagick module install failed, Please contact the author! ${CEND}"
+      echo -e "${CFAIL}PHP imagick module install failed, Please contact the author! ${CEND}"
     fi
   fi
   popd

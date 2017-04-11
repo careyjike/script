@@ -23,7 +23,7 @@ Install_PureFTPd() {
     sed -i "s@^PureDB.*@PureDB  ${pureftpd_install_dir}/etc/pureftpd.pdb@" ${pureftpd_install_dir}/etc/pure-ftpd.conf
     sed -i "s@^LimitRecursion.*@LimitRecursion  65535 8@" ${pureftpd_install_dir}/etc/pure-ftpd.conf
     ulimit -s unlimited
-    service pureftpd start
+    /etc/init.d/pureftpd start
 
     # iptables Ftp
 	  if [ -z "$(grep '20000:30000' /etc/sysconfig/iptables)" ]; then
@@ -32,10 +32,10 @@ Install_PureFTPd() {
 	    service iptables save
 	  fi
 
-    echo "${CSUCCESSFUL}Pure-Ftp installed successfully! ${CEND}"
+    echo -e "${CSUCCESSFUL}Pure-Ftp installed successfully! ${CEND}"
   else
     rm -rf ${pureftpd_install_dir}
-    echo "${CFAIL}Pure-Ftpd install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}Pure-Ftpd install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
   popd

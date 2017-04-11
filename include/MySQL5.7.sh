@@ -3,7 +3,6 @@
 Install_MySQL57() {
   pushd ${Pwd}/src
 
-  echo  "${CMESSAGES} Download mysql...${CEND}"
   if [ "$install_mod"  == 'binary' ]; then
     src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.7/mysql-${mysql57_version}-linux-glibc2.5-${SYS_BIT_b}.tar.gz &&  wget --tries=6 -c --no-check-certificate $src_url
   elif [  "$install_mod" == 'source' ]; then
@@ -45,16 +44,11 @@ Install_MySQL57() {
   fi
 
   if [ -d "${mysql_install_dir}/support-files" ]; then
-    echo "${CSUCCESSFUL}MySQL installed successfully! ${CEND}"
-    if [ "${install_mod}" == "binary" ]; then
-      rm -rf mysql-${mysql57_version}-*-${SYS_BIT_b}
-    elif [ "${install_mod}" == "source" ]; then
-      rm -rf mysql-${mysql57_version}
-    fi
+    echo -e "${CSUCCESSFUL}MySQL installed successfully! ${CEND}"
   else
     rm -rf ${mysql_install_dir}
     rm -rf mysql-${mysql57_version}
-    echo "${CFAIL}MySQL install failed, Please contact the author! ${CEND}"
+    echo -e "${CFAIL}MySQL install failed, Please contact the author! ${CEND}"
     kill -9 $$
   fi
 

@@ -2,6 +2,7 @@
 
 Install_Apache24() {
   pushd ${Pwd}/src
+  src_url=https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
 	src_url=http://www-eu.apache.org/dist/apr/apr-${apr_version}.tar.gz && wget -c --tries=6 $src_url
   src_url=http://www-eu.apache.org/dist/apr/apr-util-${apr_util_version}.tar.gz && wget -c --tries=6 $src_url
   # nghttp2 github url

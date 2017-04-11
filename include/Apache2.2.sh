@@ -31,6 +31,7 @@ Install_Apache22() {
   sed -i '3a # description: Apache is a World Wide Web server. It is used to serve' /etc/init.d/httpd
   chmod +x /etc/init.d/httpd
   chkconfig --add httpd; chkconfig httpd on
+  mkdir -p $wwwroot_dir/default,$wwwlogs_dir
 
   TMP_PORT=80
   sed -i "s@^User daemon@User ${run_user}@" ${apache_install_dir}/conf/httpd.conf

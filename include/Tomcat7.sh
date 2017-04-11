@@ -8,7 +8,7 @@ Install_Tomcat7() {
   src_url=http://archive.apache.org/dist/apr/apr-${apr_version}.tar.gz && wget -c --tries=6 $src_url
   src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v${tomcat7_version}/src/apache-tomcat-${tomcat7_version}-src.tar.gz && wget -c --tries=6 $src_url
   src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v${tomcat7_version}/bin/extras/catalina-jmx-remote.jar && wget -c --tries=6 $src_url
-  src_url=https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-connectors/native/1.2.12/source/tomcat-native-${native_version}-src.tar.gz && wget -c --tries=6 --no-cache-certificate $src_url
+  src_url=https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-connectors/native/1.2.12/source/tomcat-native-${native_version}-src.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
 
   id -u ${run_user} >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -M -s /bin/bash ${run_user} || { [ -z "$(grep ^${run_user} /etc/passwd | grep '/bin/bash')" ] && usermod -s /bin/bash ${run_user}; }

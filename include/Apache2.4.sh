@@ -5,9 +5,7 @@ Install_Apache24() {
   src_url=https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
 	src_url=http://www-eu.apache.org/dist/apr/apr-${apr_version}.tar.gz && wget -c --tries=6 $src_url
   src_url=http://www-eu.apache.org/dist/apr/apr-util-${apr_util_version}.tar.gz && wget -c --tries=6 $src_url
-  # nghttp2 github url
-  # src_url=https://github.com/nghttp2/nghttp2/releases/download/v${nghttp2_version}/nghttp2-${nghttp2_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
-  src_url=http://oss.akhack.com/src/nghttp2/nghttp2-${nghttp2_version}.tar.gz && wget -c --tries=6 $src_url
+  src_url=https://github.com/nghttp2/nghttp2/releases/download/v${nghttp2_version}/nghttp2-${nghttp2_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
   src_url=https://mirrors.aliyun.com/apache/httpd/httpd-${apache24_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
 
   tar xzf pcre-${pcre_version}.tar.gz

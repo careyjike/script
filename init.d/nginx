@@ -14,15 +14,15 @@ nginx="/usr/local/nginx/sbin/nginx"
 NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"
 
 start() {
-  [ -x \$nginx ] || exit 5
-  [ -f \$NGINX_CONF_FILE ] || exit 6
+  [ -x $nginx ] || exit 5
+  [ -f $NGINX_CONF_FILE ] || exit 6
   echo -e "Starting nginx...... "
-  \$nginx
+  $nginx
 }
 
 stop() {
   echo -e "Stopping nginx...... "
-  \$nginx -s stop
+  $nginx -s stop
 }
 
 restart() {
@@ -33,7 +33,7 @@ restart() {
 
 reload() {
   echo -e " Reload nginx...... "
-  \$nginx -s reload
+  $nginx -s reload
 }
 
 force_reload() {
@@ -41,23 +41,23 @@ force_reload() {
 }
 
 configtest() {
-  \$nginx -t
+  $nginx -t
 }
 
-case "\$1" in
+case "$1" in
   start)
-    \$1
+    $1
     ;;
   stop)
-    \$1
+    $1
     ;;
   restart|configtest)
-    \$1
+    $1
     ;;
   reload)
-    \$1
+    $1
     ;;
   *)
-    echo $"Usage: \$0 {start|stop|restart|reload|configtest}"
+    echo $"Usage: $0 {start|stop|restart|reload|configtest}"
     exit 2
 esac

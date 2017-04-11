@@ -99,7 +99,7 @@ while :; do echo
   				select	Php_cache in "Zend OPcache" "XCache" "APCU"; do break;done
   		  elif [ "${Php_var}" = "Php-5.6" ]; then
   		  	select Php_cache in "Zend OPcache" "XCache" "APCU"; do break;done
-  		  elif [ "${Php_var}" = "Php-7.0" ] || [ [ "${Php_var}" = "Php-7.1" ]; then
+  		  elif [ "${Php_var}" = "Php-7.0" ] ||  [ "${Php_var}" = "Php-7.1" ]; then
   		  	select Php_cache in "Zend OPcache" "APCU"; do break;done
   		  fi
   		  break

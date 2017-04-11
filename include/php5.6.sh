@@ -135,7 +135,7 @@ opcache.enable_cli=1
 EOF
 
   # php-fpm Init Script
-  /bin/cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+  /bin/cp sapi/fpm/init.d.php-fpm.* /etc/init.d/php-fpm
   chmod +x /etc/init.d/php-fpm
   chkconfig --add php-fpm; chkconfig php-fpm on
 

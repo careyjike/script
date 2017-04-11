@@ -22,9 +22,8 @@ Install_Tengine() {
   [ ! -d "$tengine_install_dir" ] && mkdir -p $tengine_install_dir
   ./configure --prefix=$tengine_install_dir --user=$run_user --group=$run_user --with-http_v2_module --with-http_ssl_module --with-http_gzip_static_module --with-http_realip_module --with-http_flv_module --with-http_mp4_module --with-http_concat_module=shared --with-http_sysguard_module=shared --with-openssl=../openssl-$openssl_version --with-pcre=../pcre-$pcre_version --with-pcre-jit --with-jemalloc $nginx_modules_options
   make -j ${THREAD} && make install
+  popd
   if [ -e "$tengine_install_dir/conf/nginx.conf" ]; then
-    popd
-    rm -rf tengine-$tengine_version
     echo "${CSUCCESSFUL}Tengine installed successfully! ${CEND}"
   else
     rm -rf $tengine_install_dir
@@ -36,7 +35,7 @@ Install_Tengine() {
   [ -n "`grep ^'export PATH=' /etc/profile`" -a -z "`grep $tengine_install_dir /etc/profile`" ] && sed -i "s@^export PATH=\(.*\)@export PATH=$tengine_install_dir/sbin:\1@" /etc/profile
   . /etc/profile
 
-  cp ${Pwd}/init.d/nginx /etc/init.d/nginx; chkconfig --add nginx; chkconfig nginx on
+  cp ${Pwd}/init.d/nginx /etc/init.d/nginx; chmod +x /etc/init.d/nginx; chkconfig --add nginx; chkconfig nginx on
   sed -i "s@/usr/local/nginx@$tengine_install_dir@g" /etc/init.d/nginx
 
   mv $tengine_install_dir/conf/nginx.conf{,_bk}
@@ -83,5 +82,5 @@ $wwwlogs_dir/*nginx.log {
 EOF
   popd
   ldconfig
-  service nginx start
+  /etc/init.d/nginx start
 }

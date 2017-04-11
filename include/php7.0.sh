@@ -3,7 +3,7 @@
 Install_php70() {
   pushd ${Pwd}/src
   src_url=http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${libiconv_version}.tar.gz && wget --tries=6 -c $src_url
-  src_url=https://curl.haxx.se/download/curl-${curl_version}.tar.gz && wget --tries=6 -c $src_url
+  src_url=https://curl.haxx.se/download/curl-${curl_version}.tar.gz && wget --tries=6 -c --no-check-certificate $src_url
   src_url=http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${libmcrypt_version}/libmcrypt-${libmcrypt_version}.tar.gz && wget --tries=6 -c $src_url
   #src_url=${OSS_Url}/lib/libmcrypt-${libmcrypt_version}.tar.gz && wget --tries=6 -c $src_url
   src_url=http://downloads.sourceforge.net/project/mhash/mhash/${mhash_version}/mhash-${mhash_version}.tar.gz && wget --tries=6 -c $src_url

@@ -18,12 +18,12 @@ sed -i "s@^Pwd.*@Pwd=`pwd`@" ./public/options.conf
 . ./public/versions.conf
 
 # check run user
-[ $(id -u) != "0" ] && { echo "{CFAIL}please use the root run script${CEND}"; exit 1; }
+[ $(id -u) != "0" ] && { echo -e "{CFAIL}please use the root run script${CEND}"; exit 1; }
 
 # check system
 Get_Sysinfo
 if [  "${OS}" = "Other" ]; then
-	echo "${FAIL} error,system dose not support${CEND}"
+	echo -e "${FAIL} error,system dose not support${CEND}"
   kill -9 $$
 else
 	. ./include/init_centos.sh

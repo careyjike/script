@@ -15,7 +15,7 @@ Install_Nginx() {
 
   id -u $run_user >/dev/null 2>&1
   [ $? -ne 0 ] && useradd -M -s /sbin/nologin $run_user
-  if [ ! -d ${data_dir} ]; then mkdir -p ${data_dir}/{wwwlogs,wwwroot}; fi
+  if [ ! -d ${data_dir}/wwwlogs ]; then mkdir -p ${data_dir}/{wwwlogs,wwwroot}; fi
   # Modify Nginx version
   #sed -i 's@#define NGINX_VERSION.*$@#define NGINX_VERSION      "1.2"@' src/core/nginx.h
   #sed -i 's@#define NGINX_VER.*NGINX_VERSION$@#define NGINX_VER          "Linuxeye/" NGINX_VERSION@' src/core/nginx.h

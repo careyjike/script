@@ -33,7 +33,6 @@ Install_PureFTPd() {
 	  fi
 
     echo "${CSUCCESSFUL}Pure-Ftp installed successfully! ${CEND}"
-    rm -rf pure-ftpd-${pureftpd_version}
   else
     rm -rf ${pureftpd_install_dir}
     echo "${CFAIL}Pure-Ftpd install failed, Please contact the author! ${CEND}"

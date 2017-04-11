@@ -25,7 +25,6 @@ Install_redis-server() {
     [ -z "`grep ^maxmemory ${redis_install_dir}/etc/redis.conf`" ] && sed -i "s@maxmemory <bytes>@maxmemory <bytes>\nmaxmemory `expr $Mem / 8`000000@" ${redis_install_dir}/etc/redis.conf
     echo "${CSUCCESSFUL}Redis-server installed successfully! ${CEND}"
     popd
-    rm -rf redis-${redis_version}
     id -u redis >/dev/null 2>&1
     [ $? -ne 0 ] && useradd -M -s /sbin/nologin redis
     chown -R redis:redis ${redis_install_dir}/var
@@ -67,7 +66,6 @@ Install_php-redis() {
       echo 'extension=redis.so' > ${php_install_dir}/etc/php.d/ext-redis.ini
       echo "${CSUCCESSFUL}PHP Redis module installed successfully! ${CEND}"
       popd
-      rm -rf redis-${redis_pecl_for_php7_version} redis-$redis_pecl_version
     else
       echo "${CFAIL}PHP Redis module install failed, Please contact the author! ${CEND}"
     fi

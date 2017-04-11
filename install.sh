@@ -256,7 +256,7 @@ elif [ "${Php_cache}" = "XCache" ]; then
   Install_XCache
 elif [ "${Php_cache}" = "APCU" ]; then
 	. ./include/APCU.sh
-  Install_APCUs
+  Install_APCU
 fi
 
 # ftp

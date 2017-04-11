@@ -11,7 +11,7 @@ Install_Tengine() {
 
   tar xzf pcre-$pcre_version.tar.gz
   tar xzf tengine-$tengine_version.tar.gz
-  tar xzf openssl-OpenSSL_$openssl_version.tar.gz
+  tar xzf openssl-$openssl_version.tar.gz
   pushd tengine-$tengine_version
   # Modify Tengine version
   #sed -i 's@TENGINE "/" TENGINE_VERSION@"Tengine/unknown"@' src/core/nginx.h

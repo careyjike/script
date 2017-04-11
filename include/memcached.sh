@@ -23,7 +23,7 @@ Install_memcached() {
     let memcachedCache="${Mem}/8"
     [ -n "$(grep 'CACHESIZE=' /etc/init.d/memcached)" ] && sed -i "s@^CACHESIZE=.*@CACHESIZE=${memcachedCache}@" /etc/init.d/memcached
     [ -n "$(grep 'start_instance default 256;' /etc/init.d/memcached)" ] && sed -i "s@start_instance default 256;@start_instance default ${memcachedCache};@" /etc/init.d/memcached
-    service memcached start
+    /etc/init.d/memcached start
   else
     rm -rf ${memcached_install_dir}
     echo "${CFAIL}memcached install failed, Please contact the author! ${CEND}"

@@ -22,9 +22,9 @@ Install_Tomcat8() {
     rm -rf apr-${apr_version}
   fi
 
-  tar xzf apache-tomcat-${tomcat8_version}.tar.gz
+  tar xzf apache-tomcat-${tomcat8_version}-src.tar.gz
   [ ! -d "${tomcat_install_dir}" ] && mkdir -p ${tomcat_install_dir}
-  /bin/cp -R apache-tomcat-${tomcat8_version}/* ${tomcat_install_dir}
+  /bin/cp -R apache-tomcat-${tomcat8_version}-src/* ${tomcat_install_dir}
   rm -rf ${tomcat_install_dir}/webapps/{docs,examples,host-manager,manager,ROOT/*}
 
   if [ ! -e "${tomcat_install_dir}/conf/server.xml" ]; then

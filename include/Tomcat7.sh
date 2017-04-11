@@ -20,7 +20,6 @@ Install_Tomcat7() {
     ./configure
     make -j ${THREAD} && make install
     popd
-    rm -rf apr-${apr_version}
   fi
 
   tar xzf apache-tomcat-${tomcat7_version}-src.tar.gz
@@ -35,7 +34,7 @@ Install_Tomcat7() {
   fi
 
   /bin/cp catalina-jmx-remote.jar ${tomcat_install_dir}/lib
-  [ ! -d "${tomcat_install_dir}/lib/catalina" ] &&  mkdir ${tomcat_install_dir}/lib/catalina
+  [ ! -d "${tomcat_install_dir}/lib/catalina" ] &&  mkdir -p ${tomcat_install_dir}/lib/catalina
   pushd ${tomcat_install_dir}/lib/catalina
   jar xf ../catalina.jar
   sed -i 's@^server.info=.*@server.info=Tomcat@' org/apache/catalina/util/ServerInfo.properties

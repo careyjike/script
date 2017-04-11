@@ -47,11 +47,6 @@ Install_MySQL56() {
 
   if [ -d "${mysql_install_dir}/support-files" ]; then
     echo "${CSUCCESSFUL}MySQL installed successfully! ${CEND}"
-    if [ "${install_mod}" == "binary" ]; then
-      rm -rf mysql-${mysql56_version}-*-${SYS_BIT_b}
-    elif [ "${install_mod}" == "source" ]; then
-      rm -rf mysql-${mysql56_version}
-    fi
   else
     rm -rf ${mysql_install_dir}
     rm -rf mysql-${mysql56_version}
@@ -203,7 +198,7 @@ EOF
   [ -z "$(grep ^'export PATH=' /etc/profile)" ] && echo "export PATH=${mysql_install_dir}/bin:\$PATH" >> /etc/profile
   [ -n "$(grep ^'export PATH=' /etc/profile)" -a -z "$(grep ${mysql_install_dir} /etc/profile)" ] && sed -i "s@^export PATH=\(.*\)@export PATH=${mysql_install_dir}/bin:\1@" /etc/profile
   . /etc/profile
-  service mysqld start
+  /etc/init.d/mysqld start
   ${mysql_install_dir}/bin/mysql -e "grant all privileges on *.* to root@'127.0.0.1' identified by \"${dbrootpwd}\" with grant option;"
   ${mysql_install_dir}/bin/mysql -e "grant all privileges on *.* to root@'localhost' identified by \"${dbrootpwd}\" with grant option;"
   ${mysql_install_dir}/bin/mysql -uroot -p${dbrootpwd} -e "delete from mysql.user where Password='';"
@@ -215,5 +210,5 @@ EOF
   [ -e "${mysql_install_dir}/my.cnf" ] && rm -rf ${mysql_install_dir}/my.cnf
   echo "${mysql_install_dir}/lib" > /etc/ld.so.conf.d/mysql.conf
   ldconfig
-  service mysqld stop
+  /etc/init.d/mysqld stop
 }

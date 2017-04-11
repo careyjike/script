@@ -41,6 +41,7 @@ Install_MySQL55() {
     -DEXTRA_CHARSETS=all
     -DCMAKE_EXE_LINKER_FLAGS='-ljemalloc'
     make -j $(cat /proc/cpuinfo | grep processor | wc -l) && make install
+    popd
   fi
   if [ -d "${mysql_install_dir}/support-files" ]; then
     echo  "${CSUCCESSFUL} MySql install successfully! ${CEND}"

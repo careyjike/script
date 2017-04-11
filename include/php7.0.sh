@@ -48,7 +48,7 @@ Install_PHP70() {
 
   echo '/usr/local/lib' > /etc/ld.so.conf.d/local.conf
   ldconfig
-  ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config; [ "$OS_BIT" == '64' ] && ln -s /lib64/libpcre.so.0.0.1 /lib64/libpcre.so.1 || ln -s /lib/libpcre.so.0.0.1 /lib/libpcre.so.1; }
+  ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config; [ "$OS_BIT" == '64' ] && ln -s /lib64/libpcre.so.0.0.1 /lib64/libpcre.so.1 || ln -s /lib/libpcre.so.0.0.1 /lib/libpcre.so.1
 
   tar xzf mcrypt-$mcrypt_version.tar.gz
   pushd mcrypt-$mcrypt_version
@@ -240,3 +240,4 @@ EOF
   [ -e "$php_install_dir/bin/phpize" ] && rm -rf php-$php70_version
   popd
 }
+

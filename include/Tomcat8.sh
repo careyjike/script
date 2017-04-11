@@ -11,6 +11,7 @@ Install_Tomcat8() {
   src_url=http://archive.apache.org/dist/apr/apr-${apr_version}.tar.gz && wget -c --tries=6 $src_url
   src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v${tomcat8_version}/src/apache-tomcat-${tomcat8_version}-src.tar.gz && wget -c --tries=6 $src_url
   src_url=http://mirror.bit.edu.cn/apache/tomcat/tomcat-8/v${tomcat8_version}/bin/extras/catalina-jmx-remote.jar && wget -c --tries=6 $src_url
+  src_url=https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-connectors/native/1.2.12/source/tomcat-native-${native_version}-src.tar.gz && wget -c --tries=6 --no-cache-certificate $src_url
 
   # install apr
   if [ ! -e "/usr/local/apr/bin/apr-1-config" ]; then
@@ -45,7 +46,7 @@ Install_Tomcat8() {
   rm -rf ${tomcat_install_dir}/lib/catalina
 
   pushd ${tomcat_install_dir}/bin
-  tar xzf tomcat-native.tar.gz
+  tar xzf tomcat-native-${native_version}-src.tar.gz
   pushd tomcat-native-*-src/native
     ./configure --with-apr=/usr/local/apr --with-ssl=${openssl_install_dir}
     make -j ${THREAD} && make install
@@ -65,7 +66,7 @@ EOF
     chmod +x ./*.sh
     /bin/mv ${tomcat_install_dir}/conf/server.xml{,_bk}
     popd # goto ${Pwd}/src
-
+    mkdir -p ${wwwroot_dir}/default
     /bin/cp ${Pwd}/config/server.xml ${tomcat_install_dir}/conf
     sed -i "s@/usr/local/tomcat@${tomcat_install_dir}@g" ${tomcat_install_dir}/conf/server.xml
 

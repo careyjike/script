@@ -32,6 +32,7 @@ Install_Apache24() {
 
   pushd httpd-${apache24_version}
   [ ! -d "${apache_install_dir}" ] && mkdir -p ${apache_install_dir}
+  [ ! -d "${wwwroot_dir}" ] && mkdir -p ${wwwroot_dir}/default;mkdir -p ${wwwlogs_dir}
   /bin/cp -R ../apr-${apr_version} ./srclib/apr
   /bin/cp -R ../apr-util-${apr_util_version} ./srclib/apr-util
   LDFLAGS=-ldl LD_LIBRARY_PATH=${openssl_install_dir}/lib ./configure --prefix=${apache_install_dir} --with-mpm=prefork --with-included-apr --enable-headers --enable-deflate --enable-so --enable-dav --enable-rewrite --enable-ssl --with-ssl=${openssl_install_dir} --enable-http2 --with-nghttp2=/usr/local --enable-expires --enable-static-support --enable-suexec --enable-modules=all --enable-mods-shared=all

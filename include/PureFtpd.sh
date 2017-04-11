@@ -15,7 +15,7 @@ Install_PureFTPd() {
     [ ! -e "${pureftpd_install_dir}/etc" ] && mkdir ${pureftpd_install_dir}/etc
     popd
     /bin/cp ../init.d/pureftpd /etc/init.d/pureftpd
-    /bin/cp ../config/pure-ftpd.conf ${pureftpd_install_dir}/etc
+    /bin/cp ../conf/pure-ftpd.conf ${pureftpd_install_dir}/etc
     sed -i "s@/usr/local/pureftpd@${pureftpd_install_dir}@g" /etc/init.d/pureftpd
     chmod +x /etc/init.d/pureftpd
     chkconfig --add pureftpd; chkconfig pureftpd on

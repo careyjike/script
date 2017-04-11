@@ -3,7 +3,7 @@
 Install_Tengine() {
   pushd ${Pwd}/src
   src_url=https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
-  src_url=https://github.com/openssl/openssl/archive/OpenSSL_${openssl_version}.tar.gz && wget -c --tries=6 $src_url
+  src_url=https://www.openssl.org/source/openssl-${openssl_version}.tar.gz && wget -c --tries=6 --no-check-certificate Modify$src_url
   src_url=http://tengine.taobao.org/download/tengine-${tengine_version}.tar.gz && wget -c --tries=6 $src_url
 
   id -u $run_user >/dev/null 2>&1

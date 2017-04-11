@@ -15,6 +15,7 @@ git  clone https://git.oschina.net/careyjike_173/script.git &&  cd script;chmod 
 - Tengine
 - Apache
 - Tomcat
+- mysql
 - php
 - ImageMagick
 - GraphicsMagick

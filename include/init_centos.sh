@@ -3,7 +3,7 @@ Init_Centos() {
   # Set Timezone
 	rm -rf /etc/localtime
 	ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-	service d start || systemctl start crond
+	service crond start || systemctl start crond
 	ntpdate pool.ntp.org
 	[ ! -e "/var/spool/cron/root" -o -z "$(grep 'ntpdate' /var/spool/cron/root)" ] && { echo "*/20 * * * * $(which ntpdate) pool.ntp.org > /dev/null 2>&1" >> /var/spool/cron/root;chmod 600 /var/spool/cron/root; }
 
@@ -133,7 +133,7 @@ EOF
 
   yum makecache
   # Uninstall not need packages
-  echo "${CMESSAGE}Removing the conflicting packages...${CEND}"
+  echo -e "${CMESSAGE}Removing the conflicting packages...${CEND}"
   if [ "${CENTOS_RHEL_VERSION}" == '7' ]; then
     yum -y groupremove "Basic Web Server" "MySQL Database server" "MySQL Database client" "File and Print Server"
     # change from firewalld to iptables
@@ -146,13 +146,11 @@ EOF
     yum -y groupremove "FTP Server" "Windows File Server" "PostgreSQL Database" "News Server" "MySQL Database" "DNS Name Server" "Web Server" "Dialup Networking Support" "Mail Server" "Ruby" "Office/Productivity" "Sound and Video" "Printing Support" "OpenFabrics Enterprise Distribution"
   fi
 
-  echo "${CMESSAGE}Installing dependencies packages...${CEND}"
+  echo -e "${CMESSAGE}Installing dependencies packages...${CEND}"
   yum check-update
   # Install need packages
-  pkgList="deltarpm gcc gcc-c++ make cmake autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel libaio numactl-libs readline-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel zip unzip ntpdate sqlite-devel sysstat patch bc expect rsync rsyslog git lsof lrzsz wget"
-  for Package in ${pkgList}; do
-    yum -y install ${Package}
-  done
+  yum -y install deltarpm gcc gcc-c++ make cmake autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel libaio numactl-libs readline-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel libxslt-devel libicu-devel libevent-devel libtool libtool-ltdl bison gd-devel vim-enhanced pcre-devel zip unzip ntpdate sqlite-devel sysstat patch bc expect rsync rsyslog git lsof lrzsz wget net-tools
+
 
   yum -y update bash openssl glibc
 

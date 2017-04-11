@@ -31,6 +31,7 @@ Install_redis-server() {
     /bin/cp ../init.d/redis-server /etc/init.d/redis-server
 
     cc start-stop-daemon.c -o /sbin/start-stop-daemon
+    chmod +x /etc/init.d/redis-server
     chkconfig --add redis-server
     chkconfig redis-server on
 

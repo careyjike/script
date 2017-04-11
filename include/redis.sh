@@ -34,6 +34,7 @@ Install_redis-server() {
     chmod +x /etc/init.d/redis-server
     chkconfig --add redis-server
     chkconfig redis-server on
+    [ ! -f "/etc/init.d/functions" ] && { cp ../init.d/functions /etc/init.d/functions; chmod +x /etc/init.d/functions; }
 
     sed -i "s@/usr/local/redis@${redis_install_dir}@g" /etc/init.d/redis-server
     #[ -z "`grep 'vm.overcommit_memory' /etc/sysctl.conf`" ] && echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf

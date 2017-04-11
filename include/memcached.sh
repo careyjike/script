@@ -17,14 +17,13 @@ Install_memcached() {
   popd
   if [ -d "${memcached_install_dir}/include/memcached" ]; then
     echo "${CSUCCESSFUL}memcached installed successfully! ${CEND}"
-    rm -rf memcached-${memcached_version}
     ln -s ${memcached_install_dir}/bin/memcached /usr/bin/memcached
     /bin/cp ../init.d/memcached /etc/init.d/memcached; chmod +x /etc/init.d/memcached; chkconfig --add memcached; chkconfig memcached on    sed -i "s@/usr/local/memcached@${memcached_install_dir}@g" /etc/init.d/memcached
+    [ ! -f "/etc/init.d/functions" ] && { cp ../init.d/functions /etc/init.d/functions; chmod +x /etc/init.d/functions; }
     let memcachedCache="${Mem}/8"
     [ -n "$(grep 'CACHESIZE=' /etc/init.d/memcached)" ] && sed -i "s@^CACHESIZE=.*@CACHESIZE=${memcachedCache}@" /etc/init.d/memcached
     [ -n "$(grep 'start_instance default 256;' /etc/init.d/memcached)" ] && sed -i "s@start_instance default 256;@start_instance default ${memcachedCache};@" /etc/init.d/memcached
     service memcached start
-    rm -rf memcached-${memcached_version}
   else
     rm -rf ${memcached_install_dir}
     echo "${CFAIL}memcached install failed, Please contact the author! ${CEND}"

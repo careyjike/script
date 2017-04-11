@@ -68,7 +68,7 @@ Install_php-memcached() {
   if [ -e "${php_install_dir}/bin/phpize" ]; then
     phpExtensionDir=$(${php_install_dir}/bin/php-config --extension-dir)
     # php memcached extension
-    src_url=https://launchpad.net/libmemcached/1.0/${libmemcached_version}/+download/libmemcached-${libmemcached_version}.tar.gz && wget -c --tries=6 --no-cache-certificate $src_url
+    src_url=https://launchpad.net/libmemcached/1.0/${libmemcached_version}/+download/libmemcached-${libmemcached_version}.tar.gz && wget -c --tries=6 --no-check-certificate $src_url
     tar xzf libmemcached-${libmemcached_version}.tar.gz
     pushd libmemcached-${libmemcached_version}
     yum -y install cyrus-sasl-devel

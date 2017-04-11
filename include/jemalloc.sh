@@ -27,6 +27,6 @@ Install_Jemalloc() {
       echo -e "${CFAILURE}jemalloc install failed, Please contact the author! ${CEND}"
       kill -9 $$
     fi
-    popd
   fi
+  popd
 }

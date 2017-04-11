@@ -8,7 +8,7 @@ Install_MySQL56() {
   if [ "$install_mod"  == 'binary' ]; then
     src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.6/mysql-${mysql56_version}-linux-glibc2.5-${SYS_BIT_b}.tar.gz &&  wget --tries=6 -c --no-check-certificate $src_url
   elif [  "$install_mod" == 'source' ]; then
-    src_url=http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-${mysql56_version}.tar.gz && wget --tries=6 -c $src_url
+    src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.6/mysql-${mysql56_version}.tar.gz && wget --tries=6 -c --no-check-certificate $src_url
   fi
 
   id -u mysql >/dev/null 2>&1

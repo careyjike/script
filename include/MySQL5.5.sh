@@ -6,7 +6,7 @@ Install_MySQL55() {
   if [ "$install_mod"  == 'binary' ]; then
     src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.5/mysql-${mysql55_version}-linux2.6-${SYS_BIT}.tar.gz &&  wget --tries=6 -c --no-check-certificate $src_url
   elif [  "$install_mod" == 'source' ]; then
-    src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.5/mysql-${mysql55_version}.tar.gz && wget --tries=6 -c $src_url
+    src_url=https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-5.5/mysql-${mysql55_version}.tar.gz && wget --tries=6 -c --no-check-certificate $src_url
     src_url=${OSS_Url}/mysql/mysql-5.5-fix-arm-client_plugin.patch && wget --tries=6 -c $src_url
   fi
 

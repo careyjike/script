@@ -4,15 +4,18 @@
 
 ### 安装
 - 一键安装
+
 ```bash
 git  clone https://git.oschina.net/careyjike_173/script.git &&  cd script;chmod +x install.sh; ./install.sh | tee -a install.log
 ```
 - php模块添加
+
 ```bash
 chmod +x tools/add_mode_php.sh; ./tools/add_mode_php.sh
 ```
 
 - 安装完成后执行
+
 ```bash
 source /etc/profile
 ```

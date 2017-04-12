@@ -49,10 +49,10 @@ while :; do echo
           select Apache_var in "Apache-2.2" "Apache-2.4"; do
             break
           done
-        elif [ "${Web_var}" = "Install Tomcat" ]; then
+      elif [ "${Web_var}" = "Install Tomcat" ]; then
           select Tomcat_var in "Tomcat-7" "Tomcat-8"; do
             select Jdk_var in "Jdk-1.7" "Jdk-1.8"; do
-              break
+                break
             done
             break
           done
@@ -61,7 +61,7 @@ while :; do echo
       done
       break
     elif [ "${Web_yn}" == 'n' ]; then
-      break
+        break
     fi
     break
   else
@@ -77,11 +77,11 @@ while :; do echo
       select Db_var in "Install Mysql" "Install Mariadb"; do
         if [ "${Db_var}" = "Install Mysql" ]; then
           select Mysql_var in "Mysql-5.5" "Mysql-5.6" "Mysql-5.7"; do
-            break
+              break
           done
         elif [ "${Db_var}" = "Install Mariadb" ]; then
           select Mysql_var in "Mariadb-10.0" "Mariadb-10.1"; do
-            break
+              break
           done
         fi
         break
@@ -220,11 +220,11 @@ elif [ "${Apache_var}" = "Apache-2.4" ]; then
   Install_Apache24
 elif [ "${Tomcat_var}" = "Tomcat-7" ]; then
   if [ "${Jdk_var}" = "Jdk-1.7" ]; then
-    . ./include/Jdk1.7.sh
-    Install-JDK17
+      . ./include/Jdk1.7.sh
+      Install-JDK17
   elif [ "${Jdk_var}" = "Jdk-1.8" ]; then
-    . ./include/Jdk-1.8.sh
-    Install-JDK18
+      . ./include/Jdk-1.8.sh
+      Install-JDK18
   fi
   . ./include/Tomcat7.sh
   Install_Tomcat7
@@ -282,7 +282,7 @@ if [ "${Redis_yn}" = 'y' ]; then
   . ./include/redis.sh
   Install_redis-server
   if [ "${Php_yn}" = 'y' ]; then
-    Install_php-redis
+      Install_php-redis
   fi
 fi
 
@@ -291,8 +291,8 @@ if [ "${Memcached_yn}" = 'y' ]; then
   . ./include/memcached.sh
   Install_memcached
   if [ "${Mem_var}" = "php-extension-memcache" ]; then
-    Install_php-memcache
+      Install_php-memcache
   elif [ "${Mem_var}" = "php-extension-memcached" ]; then
-    Install_php-memcached
+      Install_php-memcached
   fi
 fi

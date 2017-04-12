@@ -5,8 +5,15 @@
 #
 # Apply to: CentOS/REHL 6+
 #
+
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 clear
+
+printf '''
+=======================================
+=====    Apply to : CentOS/REHL 6+ ====
+=======================================
+'''
 
 # set work directory
 sed -i "s@^Pwd.*@Pwd=`pwd`@" ./public/options.conf

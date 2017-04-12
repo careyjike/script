@@ -71,7 +71,7 @@ Install_php-memcached() {
     tar xzf libmemcached-${libmemcached_version}.tar.gz
     pushd libmemcached-${libmemcached_version}
     yum -y install cyrus-sasl-devel
-    ./configure --with-memcached=${memcached_install_dir}
+    ./configure --prefix=${libmemcache_install_dir} --with-memcached=${memcached_install_dir}
     make -j ${THREAD} && make install
     popd
     rm -rf libmemcached-${libmemcached_version}
@@ -86,7 +86,7 @@ Install_php-memcached() {
       pushd memcached-${memcached_pecl_version}
     fi
     ${php_install_dir}/bin/phpize
-    ./configure --with-php-config=${php_install_dir}/bin/php-config
+    ./configure --with-php-config=${php_install_dir}/bin/php-config --with-libmemcached-dir=${libmemcache_install_dir}
     make -j ${THREAD} && make install
     popd
     if [ -f "${phpExtensionDir}/memcached.so" ]; then

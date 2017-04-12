@@ -9,7 +9,7 @@ git  clone https://git.oschina.net/careyjike_173/script.git &&  cd script;chmod 
 ```
 - php模块添加
 ```bash
-chmod +x tools/add_mode_php.sh;./tools/add_mode_php.sh
+chmod +x tools/add_mode_php.sh; ./tools/add_mode_php.sh
 ```
 
 - 安装完成后执行

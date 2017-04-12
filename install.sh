@@ -157,6 +157,9 @@ done
 while :; do echo
   read -p "Do you want to install memcached [y/n]?" Memcached_yn
   if [[ $Memcached_yn =~ ^[y,n]$ ]]; then
+    if [ ${Php_var} ]; then
+      select Mem_var in "php-extension-memcache" "php-extension-memcached"; do break; done
+    fi
     break
   else
   	echo "${CFAIL}Error,Only input 'y' or 'n'...${CEND}"
@@ -278,8 +281,9 @@ fi
 if [ "${Memcached_yn}" = 'y' ]; then
 	. ./include/memcached.sh
   Install_memcached
-  if [ "${Php_yn}" = 'y' ]; then
-    # Install_php-memcache
+  if [ "${Mem_var}" = "php-extension-memcache" ]; then
+    Install_php-memcache
+  elif [ "${Mem_var}" = "php-extension-memcached" ]; then
     Install_php-memcached
   fi
 fi

@@ -1,4 +1,6 @@
 
+#项目源地址:[https://git.oschina.net/careyjike_173/script](https://git.oschina.net/careyjike_173/script)
+
 ## lanmp一键安装脚本
 >**目前仅适用于centos**
 

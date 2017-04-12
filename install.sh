@@ -65,7 +65,7 @@ while :; do echo
     fi
     break
   else
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
+    echo -e "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
   fi
 done
 
@@ -92,7 +92,7 @@ while :; do echo
     fi
     break
   else
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
+    echo -e "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
   fi
 done
 
@@ -117,7 +117,7 @@ while :; do echo
     fi
     break
   else
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
+    echo -e "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
   fi
 done
 
@@ -135,7 +135,7 @@ while :; do echo
     fi
     break
   else
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
+    echo -e "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
   fi
 done
 
@@ -145,7 +145,7 @@ while :; do echo
   if [[  $Ftp_yn =~ ^[y,n]$ ]]; then
     break
   else
-    echo "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
+    echo -e "${CFAIL} Error,Only input 'y' or 'n'... ${CEND} "
   fi
 done
 
@@ -155,7 +155,7 @@ while :; do echo
   if [[ $Redis_yn =~ ^[y,n]$ ]]; then
     break
   else
-    echo "${CFAIL}Error,Only input 'y' or 'n'...${CEND}"
+    echo -e "${CFAIL}Error,Only input 'y' or 'n'...${CEND}"
   fi
   break
 done
@@ -171,7 +171,7 @@ while :; do echo
     fi
     break
   else
-    echo "${CFAIL}Error,Only input 'y' or 'n'...${CEND}"
+    echo -e "${CFAIL}Error,Only input 'y' or 'n'...${CEND}"
   fi
   break
 done

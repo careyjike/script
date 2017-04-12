@@ -48,11 +48,15 @@ while :; do echo
       fi
     elif [ "${Mode_var}" = "Memcache" ]; then
     	. ./include/memcached.sh
-    	Install_memcached
+    	if [ ! -f "${memcached_install_dir}/bin/memcached" ]; then
+	    	Install_memcached
+	    fi
     	Install_php-memcache
     elif [ "${Mode_var}" = "Memcached" ]; then
     	. ./include/memcached.sh
-    	Install_memcached
+    	if [ ! -f "${memcached_install_dir}/bin/memcached" ]; then
+	    	Install_memcached
+	    fi
     	Install_php-memcached
     elif [ "${Mode_var}" = "Redis" ]; then
     	. ./include/redis.sh

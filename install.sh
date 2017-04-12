@@ -157,8 +157,10 @@ done
 while :; do echo
   read -p "Do you want to install memcached [y/n]?" Memcached_yn
   if [[ $Memcached_yn =~ ^[y,n]$ ]]; then
-    if [ ${Php_var} ]; then
-      select Mem_var in "php-extension-memcache" "php-extension-memcached"; do break; done
+    if [ "${Memcached_yn}" = 'y' ]; then
+      if [ ${Php_var} ]; then
+        select Mem_var in "php-extension-memcache" "php-extension-memcached"; do break; done
+      fi
     fi
     break
   else

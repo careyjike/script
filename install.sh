@@ -80,7 +80,7 @@ while :; do echo
               break
           done
         elif [ "${Db_var}" = "Install Mariadb" ]; then
-          select Mysql_var in "Mariadb-10.0" "Mariadb-10.1"; do
+          select Mysql_var in "Mariadb-10.0" "Mariadb-10.1" "Mariadb-5.5"; do
               break
           done
         fi
@@ -201,8 +201,13 @@ elif [ "${Mysql_var}" = "Mysql-5.7" ]; then
   Install_MySQL57
 elif [ "${Mysql_var}" = "Mariadb-10.0" ]; then
   . ./include/MariaDB10.0.sh
+  Install_MariaDB100
 elif [ "${Mysql_var}" = "Mariadb-10.1" ]; then
   . ./include/MariaDB10.1.sh
+  Install_MariaDB101
+elif [ "${Mysql_var}" = "Mariadb-5.5" ]; then
+  . ./include/MariaDB5.5.sh
+  Install_MariaDB55
 fi
 
 # web server
